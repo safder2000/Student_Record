@@ -90,41 +90,21 @@ class _RecordListState extends State<RecordList> {
                       ),
                     ],
                   ),
-                  trailing: Column(
-                    children: [
-                      IconButton(
-                        onPressed: () {
-                          if (data.key != null) {
-                            // deleteStudent(data.id!);
-                            deleteStudent(data.key!);
-                            print('deleted');
-                          } else {
-                            print('data.id is null ..ready akk');
-                          }
-                          print('index :$index,key :${data.key}');
-                          //deleteProfile(context);
-                        },
-                        icon: Icon(Icons.delete),
-                        color: Colors.white,
-                        iconSize: 20,
-                      ),
-                      IconButton(
-                        onPressed: () {
-                          if (data.key != null) {
-                            // deleteStudent(data.id!);
-                            deleteStudent(data.key!);
-                            print('deleted');
-                          } else {
-                            print('data.id is null ..ready akk');
-                          }
-                          print('index :$index,key :${data.key}');
-                          //deleteProfile(context);
-                        },
-                        icon: Icon(Icons.delete),
-                        color: Colors.white,
-                        iconSize: 20,
-                      ),
-                    ],
+                  trailing: IconButton(
+                    onPressed: () {
+                      if (data.key != null) {
+                        // deleteStudent(data.id!);
+                        deleteStudent(data.key!);
+                        print('deleted');
+                      } else {
+                        print('data.id is null ..ready akk');
+                      }
+                      print('index :$index,key :${data.key}');
+                      //deleteProfile(context);
+                    },
+                    icon: Icon(Icons.delete),
+                    color: Colors.white,
+                    iconSize: 20,
                   ),
                   leading: CircleAvatar(
                     backgroundImage:
