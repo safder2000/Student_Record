@@ -25,8 +25,8 @@ class StudentProfile extends StatelessWidget {
                         padding: const EdgeInsets.only(right: 18.0, top: 18),
                         child: IconButton(
                           onPressed: () {
-                            if (data.id != null) {
-                              deleteStudent(data.id!);
+                            if (data.key != null) {
+                              deleteStudent(data.key!);
                               print('deleted');
                             } else {
                               print('data.id is null ..ready akk');

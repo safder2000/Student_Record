@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:student_record/db/functions/db_functions.dart';
 import 'package:student_record/screens/screen_home.dart';
 import 'package:student_record/screens/student_profile.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 import '../db/model/data_model.dart';
 
@@ -13,7 +15,11 @@ class RecordList extends StatefulWidget {
 }
 
 class _RecordListState extends State<RecordList> {
-  
+  @override
+  void dispose() {
+    Hive.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,12 +76,55 @@ class _RecordListState extends State<RecordList> {
                           ),
                         ],
                       ),
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.monitor_weight,
+                            size: 20,
+                          ),
+                          Text(
+                            'A : ${data.age}',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
+                      ),
                     ],
                   ),
-                  trailing: Text(
-                    'Age : ${data.age}',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16),
+                  trailing: Column(
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          if (data.key != null) {
+                            // deleteStudent(data.id!);
+                            deleteStudent(data.key!);
+                            print('deleted');
+                          } else {
+                            print('data.id is null ..ready akk');
+                          }
+                          print('index :$index,key :${data.key}');
+                          //deleteProfile(context);
+                        },
+                        icon: Icon(Icons.delete),
+                        color: Colors.white,
+                        iconSize: 20,
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          if (data.key != null) {
+                            // deleteStudent(data.id!);
+                            deleteStudent(data.key!);
+                            print('deleted');
+                          } else {
+                            print('data.id is null ..ready akk');
+                          }
+                          print('index :$index,key :${data.key}');
+                          //deleteProfile(context);
+                        },
+                        icon: Icon(Icons.delete),
+                        color: Colors.white,
+                        iconSize: 20,
+                      ),
+                    ],
                   ),
                   leading: CircleAvatar(
                     backgroundImage:
