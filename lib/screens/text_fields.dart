@@ -24,6 +24,7 @@ class TestFields extends StatelessWidget {
             height: 30,
           ),
           TextFormField(
+             keyboardType: TextInputType.text,
             controller: _nameController,
             decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -40,6 +41,7 @@ class TestFields extends StatelessWidget {
             height: 30,
           ),
           TextFormField(
+             keyboardType: TextInputType.number,
             controller: _ageController,
             decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -56,6 +58,7 @@ class TestFields extends StatelessWidget {
             height: 15,
           ),
           TextFormField(
+             keyboardType: TextInputType.number,
             controller: _heightController,
             decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -72,6 +75,7 @@ class TestFields extends StatelessWidget {
             height: 15,
           ),
           TextFormField(
+             keyboardType: TextInputType.number,
             controller: _weightController,
             decoration: InputDecoration(
                 prefixIcon: Icon(

@@ -11,6 +11,7 @@ class StudentProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color.fromARGB(28, 255, 82, 82),
+        appBar: AppBar(),
         body: ValueListenableBuilder(
             valueListenable: studentListNotifier,
             builder: (BuildContext ctx, List<StudentModel> studentList,
@@ -21,23 +22,23 @@ class StudentProfile extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 18.0, top: 18),
-                        child: IconButton(
-                          onPressed: () {
-                            if (data.key != null) {
-                              deleteStudent(data.key!);
-                              print('deleted');
-                            } else {
-                              print('data.id is null ..ready akk');
-                            }
-                            //deleteProfile(context);
-                          },
-                          icon: Icon(Icons.delete),
-                          color: Colors.white,
-                          iconSize: 30,
-                        ),
-                      ),
+                      // Padding(
+                      //   padding: const EdgeInsets.only(right: 18.0, top: 18),
+                      //   child: IconButton(
+                      //     onPressed: () {
+                      //       if (data.key != null) {
+                      //         deleteStudent(data.key!);
+                      //         print('deleted');
+                      //       } else {
+                      //         print('data.id is null ..ready akk');
+                      //       }
+                      //       //deleteProfile(context);
+                      //     },
+                      //     icon: Icon(Icons.delete),
+                      //     color: Colors.white,
+                      //     iconSize: 30,
+                      //   ),
+                      // ),
                     ],
                   ),
                   SizedBox(height: 10),

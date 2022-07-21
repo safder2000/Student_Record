@@ -6,13 +6,13 @@ class StudentModel extends HiveObject {
   @HiveField(0)
   int? id;
   @HiveField(1)
-  final String name;
+   String name;
   @HiveField(2)
-  final String age;
+   String age;
   @HiveField(3)
-  final String height;
+   String height;
   @HiveField(4)
-  final String weight;
+   String weight;
 
   StudentModel(
       {required this.name,
@@ -20,4 +20,5 @@ class StudentModel extends HiveObject {
       required this.height,
       required this.weight,
       this.id});
+      
 }
