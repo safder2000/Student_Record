@@ -1,19 +1,17 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:student_record/screens/home.dart';
 import 'package:student_record/screens/record.dart';
 import 'package:student_record/screens/text_fields.dart';
 
 class NavigationSceen extends StatefulWidget {
-  NavigationSceen({Key? key}) : super(key: key);
-
+  NavigationSceen({Key? key, this.page}) : super(key: key);
+  int? page;
   @override
   State<NavigationSceen> createState() => _NavigationSceenState();
 }
 
 class _NavigationSceenState extends State<NavigationSceen> {
-  int currentIndex = 0;
+  int currentIndex = 1;
   final screens = [home(), RecordList(), TestFields()];
 
   @override
@@ -40,13 +38,13 @@ class _NavigationSceenState extends State<NavigationSceen> {
                   Icons.book,
                 ),
                 label: 'Record',
-                backgroundColor: Color.fromARGB(121, 224, 100, 116)),
+                backgroundColor: Color.fromARGB(141, 64, 195, 255)),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.account_circle,
                 ),
                 label: 'user',
-                backgroundColor: Color.fromARGB(141, 64, 195, 255)),
+                backgroundColor: Color.fromARGB(121, 224, 100, 116)),
           ],
         ));
   }

@@ -4,6 +4,8 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:student_record/db/functions/Boxes.dart';
 import 'package:student_record/db/functions/db_functions.dart';
 import 'package:student_record/db/model/data_model.dart';
+import 'package:student_record/screens/home.dart';
+import 'package:student_record/screens/navigation_screeen.dart';
 import 'package:student_record/screens/record.dart';
 
 class EditTestFields extends StatelessWidget {
@@ -13,6 +15,7 @@ class EditTestFields extends StatelessWidget {
     required this.ageholder,
     required this.heightholder,
     required this.weightholder,
+    required this.index,
     this.data_key,
   }) : super(key: key);
 
@@ -26,6 +29,7 @@ class EditTestFields extends StatelessWidget {
   var heightholder;
   var weightholder;
   var data_key;
+  var index;
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +40,17 @@ class EditTestFields extends StatelessWidget {
         child: ListView(
           children: [
             CircleAvatar(
-              radius: 80,
-              backgroundColor: Colors.blueGrey,
+              backgroundColor: Colors.red[400],
+              radius: 88,
+              child: CircleAvatar(
+                backgroundColor: Color.fromARGB(255, 198, 54, 43),
+                radius: 85,
+                child: CircleAvatar(
+                  backgroundImage:
+                      AssetImage('lib/assets/images/profile/$index.jpg'),
+                  radius: 80,
+                ),
+              ),
             ),
             SizedBox(
               height: 30,
@@ -131,10 +144,11 @@ class EditTestFields extends StatelessWidget {
                       borderRadius: BorderRadius.circular(50.0),
                     ))),
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => RecordList()),
-                      );
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (ctx) => NavigationSceen()),
+                          (route) => false);
                     },
                     icon: const Icon(
                       Icons.close,
@@ -218,8 +232,9 @@ class EditTestFields extends StatelessWidget {
     final box = Boxes.getRecord();
     box.put(editKey, _student);
     print('saved data');
-    Navigator.pushAndRemoveUntil(context,
-        MaterialPageRoute(builder: (ctx) => RecordList()), (route) => false);
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(builder: (ctx) => NavigationSceen()),
+        (route) => false);
   }
-
- }
+}

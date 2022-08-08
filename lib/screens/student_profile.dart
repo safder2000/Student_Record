@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:student_record/db/functions/Boxes.dart';
 import 'package:student_record/db/functions/db_functions.dart';
 import 'package:student_record/db/model/data_model.dart';
+import 'package:student_record/screens/navigation_screeen.dart';
 import 'package:student_record/screens/record.dart';
 
 class StudentProfile extends StatelessWidget {
@@ -12,11 +16,11 @@ class StudentProfile extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color.fromARGB(28, 255, 82, 82),
         appBar: AppBar(),
-        body: ValueListenableBuilder(
-            valueListenable: studentListNotifier,
-            builder: (BuildContext ctx, List<StudentModel> studentList,
-                Widget? child) {
-              final data = studentList[index];
+        body: ValueListenableBuilder<Box<StudentModel>>(
+            valueListenable: Boxes.getRecord().listenable(),
+            builder: (BuildContext ctx, box, _) {
+              final student_data = box.values.toList().cast<StudentModel>();
+              final data = student_data[index];
               return ListView(
                 children: [
                   Row(
@@ -26,12 +30,7 @@ class StudentProfile extends StatelessWidget {
                       //   padding: const EdgeInsets.only(right: 18.0, top: 18),
                       //   child: IconButton(
                       //     onPressed: () {
-                      //       if (data.key != null) {
-                      //         deleteStudent(data.key!);
-                      //         print('deleted');
-                      //       } else {
-                      //         print('data.id is null ..ready akk');
-                      //       }
+
                       //       //deleteProfile(context);
                       //     },
                       //     icon: Icon(Icons.delete),
@@ -49,9 +48,8 @@ class StudentProfile extends StatelessWidget {
                       backgroundColor: Color.fromARGB(255, 198, 54, 43),
                       radius: 85,
                       child: CircleAvatar(
-                        backgroundImage: AssetImage(
-                          'lib/assets/images/no_profile.jpg',
-                        ),
+                        backgroundImage:
+                            AssetImage('lib/assets/images/profile/$index.jpg'),
                         radius: 80,
                       ),
                     ),
@@ -97,8 +95,10 @@ class StudentProfile extends StatelessWidget {
 
   Future<void> deleteProfile(BuildContext context) async {
     await Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (ctx) => RecordList()), (route) => false);
+      Navigator.pushAndRemoveUntil(
+          context,
+          MaterialPageRoute(builder: (ctx) => NavigationSceen()),
+          (route) => false);
     });
   }
 }

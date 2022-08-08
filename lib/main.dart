@@ -19,7 +19,7 @@ class StudentRecord extends StatelessWidget {
   const StudentRecord({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return (MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Student Record',

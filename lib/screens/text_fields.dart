@@ -14,17 +14,25 @@ class TestFields extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(),
       body: ListView(
         children: [
+          SizedBox(
+            height: 30,
+          ),
           CircleAvatar(
-            radius: 80,
-            backgroundColor: Colors.blueGrey,
+            radius: 85,
+            backgroundColor: Color.fromARGB(213, 68, 137, 255),
+            child: CircleAvatar(
+              radius: 80,
+              backgroundImage: AssetImage('lib/assets/images/no_profile.jpg'),
+            ),
           ),
           SizedBox(
             height: 30,
           ),
           TextFormField(
-             keyboardType: TextInputType.text,
+            keyboardType: TextInputType.text,
             controller: _nameController,
             decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -41,7 +49,7 @@ class TestFields extends StatelessWidget {
             height: 30,
           ),
           TextFormField(
-             keyboardType: TextInputType.number,
+            keyboardType: TextInputType.number,
             controller: _ageController,
             decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -58,7 +66,7 @@ class TestFields extends StatelessWidget {
             height: 15,
           ),
           TextFormField(
-             keyboardType: TextInputType.number,
+            keyboardType: TextInputType.number,
             controller: _heightController,
             decoration: InputDecoration(
                 prefixIcon: Icon(
@@ -75,7 +83,7 @@ class TestFields extends StatelessWidget {
             height: 15,
           ),
           TextFormField(
-             keyboardType: TextInputType.number,
+            keyboardType: TextInputType.number,
             controller: _weightController,
             decoration: InputDecoration(
                 prefixIcon: Icon(

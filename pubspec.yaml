@@ -69,7 +69,32 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - lib/assets/images/no_profile.jpg
-
+    - lib/assets/images/profile/0.jpg
+    - lib/assets/images/profile/1.jpg
+    - lib/assets/images/profile/2.jpg
+    - lib/assets/images/profile/3.jpg
+    - lib/assets/images/profile/4.jpg
+    - lib/assets/images/profile/5.jpg
+    - lib/assets/images/profile/6.jpg
+    - lib/assets/images/profile/7.jpg
+    - lib/assets/images/profile/8.jpg
+    - lib/assets/images/profile/9.jpg
+    - lib/assets/images/profile/10.jpg
+    - lib/assets/images/profile/11.jpg
+    - lib/assets/images/profile/12.jpg
+    - lib/assets/images/profile/13.jpg
+    - lib/assets/images/profile/14.jpg
+    - lib/assets/images/profile/15.jpg
+    - lib/assets/images/profile/16.jpg
+    - lib/assets/images/profile/17.jpg
+    - lib/assets/images/profile/18.jpg
+    - lib/assets/images/profile/19.jpg
+    - lib/assets/images/profile/20.jpg
+    - lib/assets/images/profile/21.jpg
+    - lib/assets/images/profile/22.jpg
+    - lib/assets/images/profile/23.jpg
+    - lib/assets/images/profile/24.jpg
+   
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
