@@ -28,12 +28,12 @@ Future<void> UpdateStudent(StudentModel value) async {
   // studentListNotifier.notifyListeners();
 }
 
-Future<void> getAllStudent() async {
-  final studentDB = await Hive.openBox<StudentModel>('student_db');
-  studentListNotifier.value.clear();
-  studentListNotifier.value.addAll(studentDB.values);
-  studentListNotifier.notifyListeners();
-}
+// Future<void> getAllStudent() async {
+//   final studentDB = await Hive.openBox<StudentModel>('student_db');
+//   studentListNotifier.value.clear();
+//   studentListNotifier.value.addAll(studentDB.values);
+//   studentListNotifier.notifyListeners();
+// }
 
 Future<void> deleteStudent(var id) async {
   final studentDB = await Hive.openBox<StudentModel>('student_db');
@@ -65,9 +65,6 @@ Future<void> searchStudent(List<String> student_listr) async {
       // }
 
       return ListView();
-
     },
   );
 }
-
-

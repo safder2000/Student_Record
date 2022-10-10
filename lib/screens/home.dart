@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:student_record/db/functions/db_functions.dart';
+
 import 'package:student_record/screens/navigation_screeen.dart';
-import 'package:student_record/screens/record.dart';
-import 'package:student_record/screens/text_fields.dart';
+import 'package:student_record/screens/screen_record.dart';
+import 'package:student_record/screens/screen_add_student/text_fields.dart';
 
 class home extends StatelessWidget {
   home({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    getAllStudent();
+    // getAllStudent();
 
     Size size = MediaQuery.of(context).size;
     return Scaffold(
@@ -27,7 +27,7 @@ class home extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => RecordList()),
+                  MaterialPageRoute(builder: (context) => ScreenRecordList()),
                 );
               },
               child: Container(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:student_record/screens/home.dart';
-import 'package:student_record/screens/record.dart';
-import 'package:student_record/screens/text_fields.dart';
+import 'package:student_record/screens/screen_record.dart';
+import 'package:student_record/screens/screen_add_student/text_fields.dart';
 
 class NavigationSceen extends StatefulWidget {
   NavigationSceen({Key? key, this.page}) : super(key: key);
@@ -12,7 +12,7 @@ class NavigationSceen extends StatefulWidget {
 
 class _NavigationSceenState extends State<NavigationSceen> {
   int currentIndex = 1;
-  final screens = [home(), RecordList(), TestFields()];
+  final screens = [home(), ScreenRecordList(), TestFields()];
 
   @override
   Widget build(BuildContext context) {

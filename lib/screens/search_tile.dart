@@ -1,18 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:student_record/db/functions/db_functions.dart';
 import 'package:student_record/screens/edit_text_fields.dart';
-import 'package:student_record/screens/listsearch.dart';
+
 import 'package:student_record/screens/student_profile.dart';
 
 class SearchTileBuilder extends StatelessWidget {
-  const SearchTileBuilder({Key? key, this.index, this.student_data})
-      : super(key: key);
+  const SearchTileBuilder({Key? key, this.student_data}) : super(key: key);
 
-  final index;
   final student_data;
   @override
   Widget build(BuildContext context) {
-    
     return ListView.separated(
       itemCount: student_data.length,
       separatorBuilder: (BuildContext context, int index) {
@@ -50,13 +49,8 @@ class SearchTileBuilder extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => EditTestFields(
-                                        nameholder: data.name,
-                                        heightholder: data.height,
-                                        ageholder: data.age,
-                                        weightholder: data.weight,
-                                        data_key: data.key,
-                                        index: index)),
+                                    builder: (context) =>
+                                        EditTestFields(index: index)),
                               );
                               print('deleted');
                             } else {
@@ -74,7 +68,7 @@ class SearchTileBuilder extends StatelessWidget {
                             if (data.key != null) {
                               // deleteStudent(data.id!);
                               deleteStudent(data.key!);
-                              removeFromList(index);
+                              // removeFromList(index);
                               print('deleted');
                             } else {
                               print('data.id is null ..ready akk');
@@ -97,7 +91,9 @@ class SearchTileBuilder extends StatelessWidget {
                     backgroundColor: Color.fromARGB(184, 37, 112, 95),
                     child: CircleAvatar(
                       backgroundImage:
-                          AssetImage('lib/assets/images/profile/$index.jpg'),
+                          data.imagePath != 'lib/assets/images/no_profile.jpg'
+                              ? Image.file(File(data.imagePath)).image
+                              : AssetImage('lib/assets/images/no_profile.jpg'),
                       radius: 30,
                     ),
                   ),

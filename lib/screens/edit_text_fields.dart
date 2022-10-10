@@ -1,22 +1,16 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:student_record/db/functions/Boxes.dart';
-import 'package:student_record/db/functions/db_functions.dart';
-import 'package:student_record/db/model/data_model.dart';
-import 'package:student_record/screens/home.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:student_record/application/edit/edit_bloc.dart';
+
 import 'package:student_record/screens/navigation_screeen.dart';
-import 'package:student_record/screens/record.dart';
 
 class EditTestFields extends StatelessWidget {
   EditTestFields({
     Key? key,
-    required this.nameholder,
-    required this.ageholder,
-    required this.heightholder,
-    required this.weightholder,
     required this.index,
-    this.data_key,
+    this.editKey,
   }) : super(key: key);
 
   final _nameController = TextEditingController();
@@ -24,12 +18,8 @@ class EditTestFields extends StatelessWidget {
   final _heightController = TextEditingController();
   final _weightController = TextEditingController();
 
-  var nameholder;
-  var ageholder;
-  var heightholder;
-  var weightholder;
-  var data_key;
-  var index;
+  int index;
+  int? editKey;
 
   @override
   Widget build(BuildContext context) {
@@ -37,204 +27,206 @@ class EditTestFields extends StatelessWidget {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ListView(
-          children: [
-            CircleAvatar(
-              backgroundColor: Colors.red[400],
-              radius: 88,
-              child: CircleAvatar(
-                backgroundColor: Color.fromARGB(255, 198, 54, 43),
-                radius: 85,
-                child: CircleAvatar(
-                  backgroundImage:
-                      AssetImage('lib/assets/images/profile/$index.jpg'),
-                  radius: 80,
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.text,
-              controller: _nameController,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.badge,
-                  color: Colors.blue.shade400,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100.0),
-                ),
-                helperText: 'Name',
-                hintText: nameholder,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              controller: _ageController,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.numbers,
-                  color: Color.fromARGB(255, 57, 192, 204),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100.0),
-                ),
-                hintText: ageholder,
-                helperText: 'Age',
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              controller: _heightController,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.square_foot,
-                  color: Color.fromARGB(122, 80, 170, 15),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100.0),
-                ),
-                hintText: heightholder,
-                helperText: 'Height',
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              keyboardType: TextInputType.number,
-              controller: _weightController,
-              decoration: InputDecoration(
-                prefixIcon: Icon(
-                  Icons.monitor_weight,
-                  color: Color.fromARGB(122, 81, 15, 139),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(100.0),
-                ),
-                hintText: weightholder,
-                helperText: 'Weight',
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 40,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
+        child: BlocBuilder<EditBloc, EditState>(
+          builder: (context, state) {
+            context.read<EditBloc>().add(CallStudentData(index: index));
+            // _nameController.text = state.student.name;
+            // _ageController.text = state.student.age;
+            // _heightController.text = state.student.height;
+            // _weightController.text = state.student.weight;
+            return ListView(
               children: [
-                SizedBox(
-                  height: 50,
-                  child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ))),
-                    onPressed: () {
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                              builder: (ctx) => NavigationSceen()),
-                          (route) => false);
-                    },
-                    icon: const Icon(
-                      Icons.close,
-                      size: 40,
-                    ),
-                    label: const Text(
-                      '',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 230, 230, 230),
-                          fontSize: 20),
+                GestureDetector(
+                  onTap: () {
+                    context.read<EditBloc>().add(EditImage());
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Colors.red[400],
+                    radius: 88,
+                    child: CircleAvatar(
+                      backgroundColor: Color.fromARGB(255, 198, 54, 43),
+                      radius: 85,
+                      child: CircleAvatar(
+                        backgroundImage: state.student.imagePath !=
+                                'lib/assets/images/no_profile.jpg'
+                            ? Image.file(File(state.student.imagePath)).image
+                            : AssetImage(state.student.imagePath),
+                        radius: 80,
+                      ),
                     ),
                   ),
                 ),
                 SizedBox(
-                  width: 10,
+                  height: 30,
+                ),
+                TextEditWidget(
+                  controller: _nameController,
+                  keybord: TextInputType.text,
+                  helperText: 'Name',
+                  icon: Icon(
+                    Icons.badge,
+                    color: Colors.blue.shade400,
+                  ),
+                  initialValue: state.student.name,
                 ),
                 SizedBox(
-                  height: 50,
-                  child: ElevatedButton.icon(
-                    style: ButtonStyle(
-                        shape:
-                            MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
-                    ))),
-                    onPressed: () {
-                      onEditStudentButtonClicked(data_key, context);
-                    },
-                    icon: const Icon(Icons.save),
-                    label: const Text(
-                      'Save  ',
-                      style: TextStyle(
-                          color: Color.fromARGB(255, 230, 230, 230),
-                          fontSize: 20),
-                    ),
+                  height: 30,
+                ),
+                TextEditWidget(
+                  controller: _ageController,
+                  initialValue: state.student.age,
+                  helperText: 'Age',
+                  icon: Icon(
+                    Icons.numbers,
+                    color: Color.fromARGB(255, 57, 192, 204),
                   ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                TextEditWidget(
+                  controller: _heightController,
+                  initialValue: state.student.height,
+                  helperText: 'Height',
+                  icon: Icon(
+                    Icons.square_foot,
+                    color: Color.fromARGB(122, 80, 170, 15),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                TextEditWidget(
+                  controller: _weightController,
+                  initialValue: state.student.weight,
+                  helperText: 'Weight',
+                  icon: Icon(
+                    Icons.monitor_weight,
+                    color: Color.fromARGB(122, 81, 15, 139),
+                  ),
+                ),
+                SizedBox(
+                  height: 40,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    SizedBox(
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ))),
+                        onPressed: () {
+                          Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (ctx) => NavigationSceen()),
+                              (route) => false);
+                        },
+                        icon: const Icon(
+                          Icons.close,
+                          size: 40,
+                        ),
+                        label: const Text(
+                          '',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 230, 230, 230),
+                              fontSize: 20),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    SizedBox(
+                      height: 50,
+                      child: ElevatedButton.icon(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0),
+                        ))),
+                        onPressed: () {
+                          if (_nameController.text == '') {
+                            _nameController.text = state.student.name;
+                          } else {
+                            state.student.name = _nameController.text;
+                          }
+
+                          if (_ageController.text == '') {
+                            _ageController.text = state.student.age;
+                          } else {
+                            state.student.age = _ageController.text;
+                          }
+
+                          if (_heightController.text == '') {
+                            _heightController.text = state.student.height;
+                          } else {
+                            state.student.height = _heightController.text;
+                          }
+                          if (_weightController.text == '') {
+                            _weightController.text = state.student.weight;
+                          } else {
+                            state.student.weight = _weightController.text;
+                          }
+                          // context.read<EditBloc>().add(SaveChanges(
+                          //     studentModel: state.student,
+                          //     id: state.student.key));
+                          BlocProvider.of<EditBloc>(context).add(SaveChanges(
+                              id: state.student.key,
+                              name: state.student.name,
+                              age: state.student.age,
+                              height: state.student.height,
+                              weight: state.student.weight,
+                              imagePath: state.student.imagePath));
+                          Navigator.pop(context);
+
+                          // onEditStudentButtonClicked(data_key, context);
+                        },
+                        icon: const Icon(Icons.save),
+                        label: const Text(
+                          'Save  ',
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 230, 230, 230),
+                              fontSize: 20),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ],
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Future<void> onEditStudentButtonClicked(
-      int editKey, BuildContext context) async {
-    var _name = _nameController.text.trim();
-    var _age = _ageController.text.trim();
-    var _height = _heightController.text.trim();
-    var _weight = _weightController.text.trim();
-
-    if (_name.isEmpty) {
-      _name = nameholder;
-    }
-    if (_age.isEmpty) {
-      _age = ageholder;
-    }
-    if (_height.isEmpty) {
-      _height = heightholder;
-    }
-    if (_weight.isEmpty) {
-      _weight = weightholder;
-    }
-    // (BuildContext ctx, List<StudentModel> studentList, Widget? child) {
-    //   (BuildContext context, int index) {
-    //     final data = studentList[index];
-
-    //     data.name = _name;
-    //     data.age = _age;
-    //     data.height = _height;
-    //     data.weight = _weight;
-
-    //     data.save();
-    //   };
-    // };
-
-    final _student =
-        StudentModel(name: _name, age: _age, height: _height, weight: _weight);
-    // UpdateStudent(_student);
-    final box = Boxes.getRecord();
-    box.put(editKey, _student);
-    print('saved data');
-    Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (ctx) => NavigationSceen()),
-        (route) => false);
+  TextEditWidget({
+    required controller,
+    required String helperText,
+    required initialValue,
+    required icon,
+    keybord = TextInputType.number,
+  }) {
+    return TextFormField(
+      keyboardType: keybord,
+      // controller: controller,
+      initialValue: initialValue,
+      onChanged: ((value) {
+        controller.text = value;
+      }),
+      decoration: InputDecoration(
+        prefixIcon: icon,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(100.0),
+        ),
+        helperText: helperText,
+      ),
+      textAlign: TextAlign.center,
+    );
   }
 }
